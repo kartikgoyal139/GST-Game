@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GST Calculation Game</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffebcd;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 30px;
+      }
+      #question {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      input[type="number"] {
+        display: block;
+        margin: 0 auto;
+        font-size: 20px;
+        width: 100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      #namereg{
+        text-align: center;
+      }
+      button {
+        display: block;
+        margin: 0 auto;
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #006080;
+      }
+      #result {
+        margin-top: 20px;
+        font-size: 24px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GST Calculation Game</h1>
+    <h3 id="namereg">Made by Kartik Goyal(21BCG10027)</h3>
+    <div id="question"></div>
+    <input type="number" id="input" placeholder="Enter answer">
+    <button onclick="checkAnswer()">Check Answer</button>
+    <p id="result"></p>
+
+    <script>
+      const products = [
+        {
+          name: "Shoes",
+          price: 1000,
+          gst: 18
+        },
+        {
+          name: "T-shirt",
+          price: 500,
+          gst: 12
+        },
+        {
+          name: "Mobile",
+          price: 15000,
+          gst: 18
+        }
+      ];
+
+      let currentQuestion = 0;
+
+      function displayQuestion() {
+        const product = products[currentQuestion];
+        const questionText = `Calculate the GST for ${product.name} which costs Rs. ${product.price}. (GST rate: ${product.gst}%)`;
+        document.getElementById("question").textContent = questionText;
+      }
+
+      function checkAnswer() {
+        const product = products[currentQuestion];
+        const input = parseInt(document.getElementById("input").value);
+        if (input === product.price * product.gst / 100) {
+          document.getElementById("result").textContent = "Correct!";
+        } else {
+          document.getElementById("result").textContent = "Incorrect. The correct answer is " + (product.price * product.gst / 100);
+        }
+        currentQuestion = (currentQuestion + 1) % products.length;
+        displayQuestion();
+        document.getElementById("input").value = "";
+      }
+
+      displayQuestion();
+    </script>
+  </body>
+</html>
